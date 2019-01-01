@@ -1,0 +1,9 @@
+.vs/*
+ContactsManager.Api/bin/*
+ContactsManager.Api/obj/*
+ContactsManager.DTO/bin/*
+ContactsManager.DTO/obj/*
+ContactsManager.Repository/bin/*
+ContactsManager.Repository/obj/*
+packages/*
+
