@@ -5,5 +5,10 @@ ContactsManager.DTO/bin/*
 ContactsManager.DTO/obj/*
 ContactsManager.Repository/bin/*
 ContactsManager.Repository/obj/*
+ContactsManager.IdSrv/bin/*
+ContactsManager.IdSrv/obj/*
+ContactsManager.Constant/bin/*
+ContactsManager.Constant/obj/*
+ContactsManager.WebClient/bin/*
+ContactsManager.WebClient/obj/*
 packages/*
-
