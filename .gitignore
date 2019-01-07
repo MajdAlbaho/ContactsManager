@@ -11,4 +11,8 @@ ContactsManager.Constant/bin/*
 ContactsManager.Constant/obj/*
 ContactsManager.WebClient/bin/*
 ContactsManager.WebClient/obj/*
+ContactsManager.ApiCore/bin/*
+ContactsManager.ApiCore/obj/*
+ContactsManager.OAuth/bin/*
+ContactsManager.OAuth/obj/*
 packages/*

@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactsManager.Constant", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactsManager.IdSrv", "ContactsManager.IdSrv\ContactsManager.IdSrv.csproj", "{EF38E9F0-4AC1-422E-9965-35F3D0996AF9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactsManager.OAuth", "ContactsManager.OAuth\ContactsManager.OAuth.csproj", "{0B4C6F82-55CE-450C-8D06-C47FB22C3125}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactsManager.ApiCore", "ContactsManager.ApiCore\ContactsManager.ApiCore.csproj", "{229E4336-EBB0-457B-92E8-25DF94CD0E4C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +49,14 @@ Global
 		{EF38E9F0-4AC1-422E-9965-35F3D0996AF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF38E9F0-4AC1-422E-9965-35F3D0996AF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF38E9F0-4AC1-422E-9965-35F3D0996AF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B4C6F82-55CE-450C-8D06-C47FB22C3125}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B4C6F82-55CE-450C-8D06-C47FB22C3125}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B4C6F82-55CE-450C-8D06-C47FB22C3125}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B4C6F82-55CE-450C-8D06-C47FB22C3125}.Release|Any CPU.Build.0 = Release|Any CPU
+		{229E4336-EBB0-457B-92E8-25DF94CD0E4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{229E4336-EBB0-457B-92E8-25DF94CD0E4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{229E4336-EBB0-457B-92E8-25DF94CD0E4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{229E4336-EBB0-457B-92E8-25DF94CD0E4C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
