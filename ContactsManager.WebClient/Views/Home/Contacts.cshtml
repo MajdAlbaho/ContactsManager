@@ -1,0 +1,36 @@
+﻿@using PagedList.Mvc;
+@model ContactsManager.WebClient.ViewModel.ContactsViewModel
+
+@Html.ActionLink("Create", "CreateContact", "Home")
+
+<table class="table">
+    <tr>
+        <th>
+            EnName
+        </th>
+        <th>
+            ArName
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.pagedList) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.EnName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ArName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditContact", new { id = item.Id, jobTitle = item }) |
+                @Html.ActionLink("Delete", "DeleteContact", new { id = item.Id })
+            </td>
+        </tr>
+    }
+</table>
+
+@(Model.PagingInfo.CurrentPage) of @Model.PagingInfo.TotalPages
+
+@Html.PagedListPager(Model.pagedList, page => Url.Action("Contacts",
+    new { page }))

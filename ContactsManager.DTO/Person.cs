@@ -8,8 +8,8 @@ namespace ContactsManager.DTO
 {
     public class Person : ModelBase<int>
     {
-        private string FullEnName { get; set; }
-        private string FullArName { get; set; }
+        public string FullEnName { get; set; }
+        public string FullArName { get; set; }
         public int JobTitleId { get; set; }
     }
 }

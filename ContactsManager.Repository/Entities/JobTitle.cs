@@ -1,5 +1,6 @@
 namespace ContactsManager.Repository.Entities
 {
+    using ContactsManager.Repository.Interface;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -7,7 +8,7 @@ namespace ContactsManager.Repository.Entities
     using System.Data.Entity.Spatial;
 
     [Table("Common.JobTitle")]
-    public partial class JobTitle
+    public partial class JobTitle : IEntity<int>
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public JobTitle()

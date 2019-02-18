@@ -1,12 +1,11 @@
-﻿using CacheCow.Server.WebApi;
+﻿using AutoMapper;
+using CacheCow.Server.WebApi;
 using ContactsManager.Api.Helper;
-using ContactsManager.Repository.Data;
 using ContactsManager.Repository.Entities;
 using ContactsManager.Repository.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
@@ -14,16 +13,16 @@ using System.Web.Http.Routing;
 
 namespace ContactsManager.Api.Controllers
 {
-    public class JobTitleController : ApiController
+    public class JobTitleController : BaseApiController<IJobTitleRepository, JobTitle, DTO.JobTitle>
     {
         private readonly IJobTitleRepository _jobTitleRepository;
-        private const int _maxPageSize = 5;
 
-        public JobTitleController(IJobTitleRepository jobTitleRepository) {
-            _jobTitleRepository = jobTitleRepository;
+        public JobTitleController(IJobTitleRepository repository)
+            : base(repository) {
+            _jobTitleRepository = repository;
         }
 
-
+        [HttpGet]
         [Route("api/JobTitle", Name = "JobTitlesList"), HttpCache(DefaultExpirySeconds = 60)]
         public IHttpActionResult Get(string sort = "Id",
                     string EnName = null, string ArName = null,
@@ -35,7 +34,7 @@ namespace ContactsManager.Api.Controllers
                     listOfFields = fields.ToLower().Split(',').ToList();
                 }
 
-                var items = _jobTitleRepository.GetAll()
+                var items = _jobTitleRepository.GetAll()?
                     .ApplySort(sort)
                     .Where(e => (EnName == null || e.EnName == EnName))
                     .Where(e => (ArName == null || e.ArName == ArName));
@@ -84,75 +83,11 @@ namespace ContactsManager.Api.Controllers
                     .ApplySort(sort)
                     .Skip(pageSize * (page - 1))
                     .Take(pageSize).ToList()
-                    .Select(e => ExpanOBJ.CreateDataShapedObject(Mapper.Map<DTO.JobTitle>(e), listOfFields))
+                    .Select(e => ExpandObject.CreateDataShapedObject(Mapper.Map<DTO.JobTitle>(e), listOfFields))
                     .ToList());
             }
             catch (Exception ex) {
-                return InternalServerError();
-            }
-        }
-
-        public async Task<IHttpActionResult> Get(int Id) {
-            try {
-                var item = await _jobTitleRepository.GetAsync(Id);
-                if (item == null)
-                    return NotFound();
-
-                return Ok(item);
-            }
-            catch (Exception) {
-                return InternalServerError();
-            }
-        }
-
-        [HttpPost]
-        public async Task<IHttpActionResult> Post([FromBody] DTO.JobTitle jobTitle) {
-            try {
-                if (jobTitle == null)
-                    return BadRequest();
-
-                var result = await _jobTitleRepository.AddAsync(Mapper.Map<JobTitle>(jobTitle));
-
-                if (result == -1) {
-                    return BadRequest();
-                }
-
-                jobTitle.Id = result;
-                return Created(Request.RequestUri + "/" + result.ToString(), jobTitle);
-            }
-            catch (Exception) {
-                return InternalServerError();
-            }
-        }
-
-        [HttpPut]
-        public async Task<IHttpActionResult> Put(int Id, [FromBody]DTO.JobTitle jobTitle) {
-            try {
-                if (jobTitle == null)
-                    return BadRequest();
-
-                jobTitle.Id = Id;
-                await _jobTitleRepository.UpdateAsync(Mapper.Map<JobTitle>(jobTitle));
-                return Ok(jobTitle);
-            }
-            catch (Exception) {
-                return InternalServerError();
-            }
-        }
-
-
-        [HttpDelete]
-        public async Task<IHttpActionResult> Delete(int Id) {
-            try {
-                var item = await _jobTitleRepository.FindAsync(e => e.Id == Id);
-
-                if (item == null)
-                    return NotFound();
-
-                return StatusCode(System.Net.HttpStatusCode.NoContent);
-            }
-            catch (Exception) {
-                return InternalServerError();
+                return InternalServerError(ex);
             }
         }
     }

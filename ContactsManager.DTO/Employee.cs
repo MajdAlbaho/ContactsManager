@@ -12,6 +12,9 @@ namespace ContactsManager.DTO
         public int BranchId { get; set; }
         public string Email { get; set; }
         public string AnyDesk { get; set; }
-        
+
+        public Person Person { get; set; }
+        public Branch Branch { get; set; }
+
     }
 }

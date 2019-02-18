@@ -1,5 +1,4 @@
-﻿using ContactsManager.Repository.Data;
-using ContactsManager.Repository.Entities;
+﻿using ContactsManager.Repository.Entities;
 using ContactsManager.Repository.Interface;
 using System;
 using System.Collections.Generic;

@@ -15,8 +15,15 @@ namespace ContactsManager.Api
             // it is NOT necessary to register your controllers
 
             // e.g. container.RegisterType<ITestService, TestService>();
-            container.RegisterType<IJobTitleRepository, JobTitleRepository>();
+            container.RegisterType<IAreaRepository, AreaRepository>();
+            container.RegisterType<IBranchRepository, BranchRepository>();
+            container.RegisterType<IBranchTypeRepository, BranchTypeRepository>();
+            container.RegisterType<ICityRepository, CityRepository>();
             container.RegisterType<IEmployeeRepository, EmployeeRepository>();
+            container.RegisterType<IJobTitleRepository, JobTitleRepository>();
+            container.RegisterType<IPersonRepository, PersonRepository>();
+
+
 
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
         }

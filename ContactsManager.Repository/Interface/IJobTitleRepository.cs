@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ContactsManager.Repository.Interface
 {
-    public interface IJobTitleRepository : IBaseRepository<JobTitle>
+    public interface IJobTitleRepository : IBaseRepository<Entities.JobTitle>
     {
 
     }

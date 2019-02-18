@@ -1,4 +1,5 @@
 ﻿using ContactsManager.Repository.Entities;
+using ContactsManager.Repository.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ContactsManager.Repository
 {
-    public class CityRepository : BaseRepository<City>
+    public class CityRepository : BaseRepository<City>, ICityRepository
     {
     }
 }

@@ -1,5 +1,7 @@
 namespace ContactsManager.Repository.Entities
 {
+    using ContactsManager.Repository.Interface;
+    using ContactsManager.Repository.Interface;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -7,7 +9,7 @@ namespace ContactsManager.Repository.Entities
     using System.Data.Entity.Spatial;
 
     [Table("Location.Area")]
-    public partial class Area
+    public partial class Area : IEntity<int>
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Area()

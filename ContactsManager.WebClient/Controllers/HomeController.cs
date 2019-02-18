@@ -1,117 +1,90 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using System.Net.Http;
+﻿using ContactsManager.DTO;
+using ContactsManager.WebClient.Helper;
+using ContactsManager.WebClient.ViewModel;
 using Newtonsoft.Json;
-using ContactsManager.WebClient.Model;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authentication;
-using IdentityModel.Client;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using PagedList;
 using System;
-using System.Globalization;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
+using System.Web;
+using System.Web.Mvc;
 
 namespace ContactsManager.WebClient.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+        public async Task<ActionResult> Contacts(int page = 1) {
+            var client = new HttpClient();
+            client.BaseAddress = new Uri("http://localhost:54427/");
 
-        [Authorize]
-        public async Task<ActionResult> Shouts()
-        {
-            await RefreshTokensAsync();
+            var response = await client.GetAsync("api/JobTitle?page=" + page);
+            ContactsViewModel contactsViewModel = new ContactsViewModel();
 
-            var token = await HttpContext.Authentication.GetTokenAsync("access_token");
+            if (response.IsSuccessStatusCode) {
+                var content = await response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<IList<JobTitle>>(content);
 
-            using (var client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.Authorization = 
-                    new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                var pagingInfo = HeaderParser.FindAndParsePagingInfo(response.Headers);
 
-                var shoutsResponse = await (await client.GetAsync($"http://localhost:33917/api/shouts")).Content.ReadAsStringAsync();
-
-                var shouts = JsonConvert.DeserializeObject<Shout[]>(shoutsResponse);
-                
-                return View(shouts);
+                contactsViewModel = new ContactsViewModel() {
+                    pagedList = new StaticPagedList<JobTitle>(result, pagingInfo.CurrentPage,
+                    pagingInfo.PageSize, pagingInfo.TotalCount),
+                    PagingInfo = pagingInfo
+                };
             }
+
+            return View(contactsViewModel);
         }
 
-        private async Task RefreshTokensAsync()
-        {
-            var authorizationServerInformation = 
-                await DiscoveryClient.GetAsync("http://localhost:59418");
-
-            var client = new TokenClient(authorizationServerInformation.TokenEndpoint,
-                "socialnetwork_code", "secret");
-
-            var refreshToken = await HttpContext.Authentication.GetTokenAsync("refresh_token");
-
-            var tokenResponse = await client.RequestRefreshTokenAsync(refreshToken);
-
-            var identityToken = await HttpContext.Authentication.GetTokenAsync("id_token");
-
-            var expiresAt = DateTime.UtcNow + TimeSpan.FromSeconds(tokenResponse.ExpiresIn);
-
-
-            var tokens = new[] {
-                new AuthenticationToken
-                {
-                    Name = OpenIdConnectParameterNames.IdToken,
-                    Value = identityToken
-                },
-                new AuthenticationToken
-                {
-                    Name = OpenIdConnectParameterNames.AccessToken,
-                    Value = tokenResponse.AccessToken
-                },
-                new AuthenticationToken
-                {
-                    Name = OpenIdConnectParameterNames.RefreshToken,
-                    Value = tokenResponse.RefreshToken
-                },
-                new AuthenticationToken
-                {
-                    Name = "expires_at",
-                    Value = expiresAt.ToString("o", CultureInfo.InvariantCulture)
-                }
-            };
-
-            var authenticationInformation = await HttpContext.Authentication.GetAuthenticateInfoAsync("Cookies");
-
-            authenticationInformation.Properties.StoreTokens(tokens);
-
-            await HttpContext.Authentication.SignInAsync("Cookies",
-                authenticationInformation.Principal,
-                authenticationInformation.Properties);
-        }
-        
-        [Authorize]
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
+        [HttpGet]
+        public ActionResult CreateContact() {
             return View();
         }
 
-        public async Task Logout()
-        {
-            await HttpContext.Authentication.SignOutAsync("Cookies");
-            await HttpContext.Authentication.SignOutAsync("oidc");
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateContact(JobTitle jobTitle) {
+            if (!ModelState.IsValid)
+                return View();
+
+            var client = new HttpClient();
+            client.BaseAddress = new Uri("http://localhost:54427/");
+
+
+            var serializedItem = JsonConvert.SerializeObject(jobTitle);
+
+            var response = await client.PostAsync("api/JobTitle",
+                                new StringContent(serializedItem,
+                                    Encoding.Unicode, "application/json"));
+            if (response.IsSuccessStatusCode) {
+                return RedirectToAction("Contacts");
+            }
+            else
+                return View();
         }
 
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
+        [HttpGet]
+        public ActionResult EditContact() {
             return View();
         }
 
-        public IActionResult Error()
-        {
+        [HttpPut]
+        public ActionResult EditContact(int Id, JobTitle jobTitle) {
+            return null;
+        }
+
+
+        [HttpGet]
+        public ActionResult DeleteContact() {
             return View();
+        }
+
+        [HttpDelete]
+        public ActionResult DeleteContact(int Id) {
+            return null;
         }
     }
 }
