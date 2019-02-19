@@ -12,5 +12,9 @@ namespace ContactsManager.DTO
         public int CityId { get; set; }
         public int AreaId { get; set; }
         public string PhoneNumber { get; set; }
+
+        public City City { get; set; }
+        public Area Area { get; set; }
+        public BranchType BranchType { get; set; }
     }
 }

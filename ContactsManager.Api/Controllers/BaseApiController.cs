@@ -25,7 +25,8 @@ namespace ContactsManager.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IHttpActionResult> Get() {
+        [Route("Employee/GetAll")]
+        public virtual async Task<IHttpActionResult> GetAll() {
             try {
                 return Ok(Mapper.Map<IEnumerable<TModel>>(await _repository.GetAllAsync()).ToList());
             }
@@ -35,9 +36,9 @@ namespace ContactsManager.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IHttpActionResult> Get(int Id) {
+        public virtual async Task<IHttpActionResult> Get(int Id) {
             try {
-                var item = await _repository.GetAsync(Id);
+                var item = Mapper.Map<TModel>(await _repository.GetAsync(Id));
                 if (item == null)
                     return NotFound();
 
@@ -50,7 +51,7 @@ namespace ContactsManager.Api.Controllers
 
 
         [HttpPost]
-        public async Task<IHttpActionResult> Post([FromBody]TModel param) {
+        public virtual async Task<IHttpActionResult> Post([FromBody]TModel param) {
             try {
                 if (param == null)
                     return BadRequest();
@@ -71,7 +72,7 @@ namespace ContactsManager.Api.Controllers
 
 
         [HttpPut]
-        public async Task<IHttpActionResult> Put(int Id, [FromBody]TModel param) {
+        public virtual async Task<IHttpActionResult> Put(int Id, [FromBody]TModel param) {
             try {
                 if (param == null)
                     return BadRequest();
@@ -87,7 +88,7 @@ namespace ContactsManager.Api.Controllers
 
 
         [HttpDelete]
-        public async Task<IHttpActionResult> Delete(int Id) {
+        public virtual async Task<IHttpActionResult> Delete(int Id) {
             try {
                 var item = await _repository.FindAsync(e => e.Id == Id);
 

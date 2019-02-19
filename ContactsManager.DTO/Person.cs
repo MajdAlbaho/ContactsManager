@@ -11,5 +11,7 @@ namespace ContactsManager.DTO
         public string FullEnName { get; set; }
         public string FullArName { get; set; }
         public int JobTitleId { get; set; }
+
+        public JobTitle JobTitle { get; set; }
     }
 }

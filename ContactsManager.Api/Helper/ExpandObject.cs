@@ -12,10 +12,10 @@ namespace ContactsManager.Api.Helper
 {
     public static class ExpandObject
     {
-        public static object CreateDataShapedObject(DTO.JobTitle jobTitle, List<string> listOfFields) {
+        public static object CreateDataShapedObject<TModel>(TModel model, List<string> listOfFields) {
 
             if (!listOfFields.Any()) {
-                return jobTitle;
+                return model;
             }
             else {
                 // create a new ExpandoObject & dynamically create the properties for this object
@@ -24,9 +24,9 @@ namespace ContactsManager.Api.Helper
                     // need to include public and instance, b/c specifying a binding flag overwrites the
                     // already-existing binding flags.
 
-                    var fieldValue = jobTitle.GetType()
+                    var fieldValue = model.GetType()
                         .GetProperty(field, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance)
-                        .GetValue(jobTitle, null);
+                        .GetValue(model, null);
 
                     // add the field to the ExpandoObject
                     ((IDictionary<string, object>)objectToReturn).Add(field, fieldValue);
