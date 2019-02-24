@@ -1,0 +1,84 @@
+﻿@model ContactsManager.WebClient.ViewModel.Contact.ContactsDetails
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Employee</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FullName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FullName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.JobTitleName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.JobTitleName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BranchName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BranchName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BranchType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BranchType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhonesList)
+        </dt>
+        <dd>
+            @foreach (var phone in Model.PhonesList) {
+                @Html.DisplayFor(model => model.PhonesList) <br />
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CityName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CityName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AreaName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AreaName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AnyDesk)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AnyDesk)
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "ContactsView")
+</p>
+
+

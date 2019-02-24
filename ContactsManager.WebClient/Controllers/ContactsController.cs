@@ -4,17 +4,38 @@ using ContactsManager.WebClient.Helper;
 using ContactsManager.WebClient.ViewModel.Contact;
 using Newtonsoft.Json;
 using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 
 namespace ContactsManager.WebClient.Controllers
 {
-    public class ContactsController : Controller
+    public class ContactsController : BaseController
     {
+        public ActionResult SetCulture(string culture) {
+            // Validate input
+            culture = CultureHelper.GetImplementedCulture(culture);
+
+            // Save culture in a cookie
+            HttpCookie cookie = Request.Cookies["_culture"];
+            if (cookie != null)
+                cookie.Value = culture;   // update cookie value
+            else {
+
+                cookie = new HttpCookie("_culture");
+                cookie.Value = culture;
+                cookie.Expires = DateTime.Now.AddYears(1);
+            }
+            Response.Cookies.Add(cookie);
+
+            return RedirectToAction("Create");
+        }
+
         public async Task<ActionResult> ContactsView(int page = 1) {
 
             var response = await Client.GetApiClient().GetAsync("api/Employee?page=" + page);
@@ -32,7 +53,7 @@ namespace ContactsManager.WebClient.Controllers
                     Branch = e.Branch.EnName,
                     PersonFullName = e.Person.FullArName,
                     JobTitle = e.Person.JobTitle.EnName,
-                    Phones = new List<string>()
+                    Phones = e.EmployeePhone
                 }).ToList();
 
                 contactsViewModel = new ContactsViewModel() {
@@ -136,8 +157,8 @@ namespace ContactsManager.WebClient.Controllers
 
             return View(contactViewModel);
         }
-        
-        public async Task<ActionResult> Edit(int Id,ContactViewModel contactViewModel) {
+
+        public async Task<ActionResult> Edit(int Id, ContactViewModel contactViewModel) {
             if (!ModelState.IsValid)
                 return View();
 
@@ -164,7 +185,7 @@ namespace ContactsManager.WebClient.Controllers
         public ActionResult Delete() {
             return View();
         }
-        
+
         public async Task<ActionResult> Delete(int Id) {
             var response = await Client.GetApiClient().DeleteAsync("api/Employee/" + Id);
             if (response.IsSuccessStatusCode) {
@@ -172,6 +193,31 @@ namespace ContactsManager.WebClient.Controllers
             }
             else
                 return View("Error");
+        }
+
+        public async Task<ActionResult> Details(int Id) {
+            var employeeResponse = await Client.GetApiClient().GetAsync("api/Employee/" + Id);
+
+            var result = JsonConvert.DeserializeObject<Employee>(await employeeResponse.Content.ReadAsStringAsync());
+
+            if (employeeResponse.IsSuccessStatusCode) {
+                var contactDetail = new ContactsDetails() {
+                    Id = result.Id,
+                    AnyDesk = result.AnyDesk,
+                    AreaName = result.Branch.Area.EnName,
+                    BranchName = result.Branch.EnName,
+                    BranchType = result.Branch.BranchType.EnName,
+                    CityName = result.Branch.City.EnName,
+                    Email = result.Email,
+                    FullName = result.Person.FullEnName,
+                    JobTitleName = result.Person.JobTitle.EnName,
+                    PhonesList = result.EmployeePhone
+                };
+
+                return View(contactDetail);
+            }
+
+            return View("Error");
         }
     }
 }

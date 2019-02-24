@@ -37,7 +37,7 @@ namespace ContactsManager.Repository
             return DbContext.Set<TEntity>().Find(id);
         }
 
-        public IQueryable<TEntity> GetAll() {
+        public virtual IQueryable<TEntity> GetAll() {
             return Filter == null ? DbContext.Set<TEntity>() : DbContext.Set<TEntity>().Where(Filter);
         }
 
@@ -94,7 +94,7 @@ namespace ContactsManager.Repository
 
         #region Async
 
-        public async Task<IList<TEntity>> GetAllAsync() {
+        public virtual async Task<IList<TEntity>> GetAllAsync() {
             return await DbContext.Set<TEntity>().ToListAsync();
         }
 

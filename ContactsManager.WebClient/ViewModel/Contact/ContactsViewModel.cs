@@ -3,6 +3,7 @@ using PagedList;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,7 +20,11 @@ namespace ContactsManager.WebClient.ViewModel.Contact
     {
         public int Id { get; set; }
 
-        [DisplayName("Name")]
+        [Display(Name = "FirstName", ResourceType = typeof(Resources.Resources))]
+        [Required(ErrorMessageResourceType = typeof(Resources.Resources),
+              ErrorMessageResourceName = "FirstNameRequired")]
+        [StringLength(50, ErrorMessageResourceType = typeof(Resources.Resources),
+                      ErrorMessageResourceName = "FirstNameLong")]
         public string PersonFullName { get; set; }
 
         [DisplayName("Job title")]
