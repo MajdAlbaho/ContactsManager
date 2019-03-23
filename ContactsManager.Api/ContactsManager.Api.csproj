@@ -366,6 +366,10 @@
       <Project>{6B1E2EA9-05BF-4866-A0FA-93F45F72E7ED}</Project>
       <Name>ContactsManager.Repository</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Database\ContactsManager.Db\ContactsManager.Db.csproj">
+      <Project>{8A71375F-E00D-4DEC-ADF3-7CCF0B0D8054}</Project>
+      <Name>ContactsManager.Db</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -55,7 +55,7 @@ namespace ContactsManager.WebClient.Controllers
                     JobTitle = e.Person.JobTitle.EnName,
                     Phones = e.EmployeePhone
                 }).ToList();
-
+                
                 contactsViewModel = new ContactsViewModel() {
                     ContactsPagedList = new StaticPagedList<EmployeeViewModel>(items, pagingInfo.CurrentPage,
                     pagingInfo.PageSize, pagingInfo.TotalCount),
