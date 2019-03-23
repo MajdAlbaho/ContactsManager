@@ -1,4 +1,4 @@
-﻿using ContactsManager.Repository.Entities;
+﻿using ContactsManager.Db.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

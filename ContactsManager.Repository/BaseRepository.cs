@@ -1,4 +1,4 @@
-﻿using ContactsManager.Repository.Entities;
+﻿using ContactsManager.Db.Entities;
 using ContactsManager.Repository.Interface;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,6 @@ using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ContactsManager.Repository

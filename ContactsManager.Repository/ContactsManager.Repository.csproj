@@ -46,12 +46,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -71,15 +65,6 @@
     <Compile Include="BranchTypeRepository.cs" />
     <Compile Include="CityRepository.cs" />
     <Compile Include="EmployeeRepository.cs" />
-    <Compile Include="Entities\Area.cs" />
-    <Compile Include="Entities\Branch.cs" />
-    <Compile Include="Entities\BranchType.cs" />
-    <Compile Include="Entities\City.cs" />
-    <Compile Include="Entities\ContactsManagerContext.cs" />
-    <Compile Include="Entities\Employee.cs" />
-    <Compile Include="Entities\EmployeePhone.cs" />
-    <Compile Include="Entities\JobTitle.cs" />
-    <Compile Include="Entities\Person.cs" />
     <Compile Include="Interface\IAreaRepository.cs" />
     <Compile Include="Interface\IBaseRepository.cs" />
     <Compile Include="Interface\IBranchRepository.cs" />
@@ -91,18 +76,12 @@
     <Compile Include="Interface\IPersonRepository.cs" />
     <Compile Include="Interface\IUserRepository.cs" />
     <Compile Include="JobTitleRepository.cs" />
-    <Compile Include="Migrations\201901132052501_intial-create.cs" />
-    <Compile Include="Migrations\201901132052501_intial-create.Designer.cs">
-      <DependentUpon>201901132052501_intial-create.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PersonRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BaseRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -120,10 +99,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201901132052501_intial-create.resx">
-      <DependentUpon>201901132052501_intial-create.cs</DependentUpon>
-    </EmbeddedResource>
+    <ProjectReference Include="..\Database\ContactsManager.Db\ContactsManager.Db.csproj">
+      <Project>{8a71375f-e00d-4dec-adf3-7ccf0b0d8054}</Project>
+      <Name>ContactsManager.Db</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,0 +1,4 @@
+2019-02-27 21:08:14.063 +02:00 [ERR] Invalid client configuration for client ClientId: No redirect URI configured.
+2019-02-27 21:08:14.220 +02:00 [ERR] No client with id 'ClientId' found. aborting
+2019-02-27 21:09:18.208 +02:00 [ERR] Invalid client configuration for client ClientId: No redirect URI configured.
+2019-02-27 21:09:18.208 +02:00 [ERR] No client with id 'ClientId' found. aborting
